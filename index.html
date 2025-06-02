@@ -469,7 +469,7 @@
         </div>
     </section>
 
-    <!-- Modal para detalhes do produto -->
+   
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -483,14 +483,12 @@
         </div>
     </div>
 
-    <!-- Notificação -->
     <div id="notification" class="notification"></div>
 
     <script>
         let cart = [];
         let allProducts = [];
 
-        // Inicializar produtos
         function initProducts() {
             const productElements = document.querySelectorAll('.texto');
             allProducts = Array.from(productElements).map(el => ({
@@ -501,7 +499,6 @@
             }));
         }
 
-        // Adicionar ao carrinho
         function addToCart(name, price) {
             const existingItem = cart.find(item => item.name === name);
             if (existingItem) {
@@ -513,22 +510,18 @@
             showNotification(`${name} adicionado ao carrinho!`, 'success');
         }
 
-        // Atualizar contador do carrinho
         function updateCartCount() {
             const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-count').textContent = cartCount;
         }
 
-        // Comprar produto
         function buyProduct(name, price) {
             showNotification(`Redirecionando para o pagamento de ${name}...`, 'success');
-            // Aqui você implementaria a lógica de pagamento real
             setTimeout(() => {
                 alert(`Compra de ${name} por R$ ${price.toFixed(2)} realizada com sucesso!`);
             }, 1500);
         }
 
-        // Mostrar detalhes do produto
         function showDetails(name, description, price) {
             document.getElementById('modal-title').textContent = name;
             document.getElementById('modal-description').textContent = description;
@@ -547,12 +540,10 @@
             document.getElementById('productModal').style.display = 'block';
         }
 
-        // Fechar modal
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
         }
 
-        // Pesquisar produtos
         function searchProducts() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
             allProducts.forEach(product => {
@@ -565,7 +556,6 @@
             }
         }
 
-        // Filtrar produtos
         function filterProducts() {
             const categoryFilter = document.getElementById('category-filter').value;
             const priceFilter = document.getElementById('price-filter').value;
@@ -573,12 +563,10 @@
             allProducts.forEach(product => {
                 let showProduct = true;
                 
-                // Filtro de categoria
                 if (categoryFilter && product.category !== categoryFilter) {
                     showProduct = false;
                 }
                 
-                // Filtro de preço
                 if (priceFilter) {
                     const [min, max] = priceFilter.split('-').map(p => p === '+' ? Infinity : parseFloat(p));
                     if (max === undefined) {
@@ -592,7 +580,6 @@
             });
         }
 
-        // Limpar filtros
         function clearFilters() {
             document.getElementById('search-input').value = '';
             document.getElementById('category-filter').value = '';
@@ -605,7 +592,6 @@
             showNotification('Filtros limpos!', 'success');
         }
 
-        // Alternar carrinho (função placeholder)
         function toggleCart() {
             if (cart.length === 0) {
                 showNotification('Seu carrinho está vazio!', 'success');
@@ -621,7 +607,6 @@
             alert(`Itens no carrinho:\n\n${cartItems}\n\nTotal: R$ ${total.toFixed(2)}`);
         }
 
-        // Mostrar notificação
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -632,7 +617,6 @@
             }, 3000);
         }
 
-        // Fechar modal ao clicar fora
         window.onclick = function(event) {
             const modal = document.getElementById('productModal');
             if (event.target === modal) {
@@ -640,14 +624,13 @@
             }
         }
 
-        // Pesquisar ao pressionar Enter
         document.getElementById('search-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchProducts();
             }
         });
 
-        // Inicializar quando a página carregar
+
         document.addEventListener('DOMContentLoaded', function() {
             initProducts();
         });
